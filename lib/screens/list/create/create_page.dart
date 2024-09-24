@@ -12,12 +12,10 @@ class CreatePage extends StatefulWidget {
 }
 
 class _CreatePageState extends State<CreatePage> {
-  final TextEditingController _titleController =
-      TextEditingController(); //digitar
-  final TextEditingController _questController =
-      TextEditingController(); //digitar
-  final store = CheckStore(); //area de marcação
-  final _formKey = GlobalKey<FormState>(); //chave pro formulario
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _questController = TextEditingController();
+  final store = CheckStore();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +26,8 @@ class _CreatePageState extends State<CreatePage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
-          key: _formKey, //associando a chave do formulario
-          child: Column(
+          key: _formKey,
+          child: ListView(
             children: [
               Card(
                 child: Padding(
@@ -41,21 +39,20 @@ class _CreatePageState extends State<CreatePage> {
                         'Nome da tarefa',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                          height: 4.0), // Espaço entre o Label e o Title
+                      const SizedBox(height: 4.0),
                       TextFormField(
                         controller: _titleController,
                         decoration: const InputDecoration(
                           hintText: 'Digite o título da tarefa',
                         ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'O titulo da tarefa é obrigatorio';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,  
-                  ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'O título da tarefa é obrigatório';
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                      ),
                       const SizedBox(height: 4.0),
                       const Text('Ex: ir a Petshop'),
                     ],
@@ -76,14 +73,15 @@ class _CreatePageState extends State<CreatePage> {
                       TextField(
                         controller: _questController,
                         decoration: const InputDecoration(
-                            hintText: 'Digite a função dessa tarefa'),
+                          hintText: 'Digite a função dessa tarefa',
+                        ),
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 4.0),
                       const Text('Ex: Comprar ração no Petshop'),
                       const SizedBox(height: 16),
                       Text(
-                        'Qual a importancia da sua tarefa?',
+                        'Qual a importância da sua tarefa?',
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Observer(builder: (_) {
@@ -130,6 +128,7 @@ class _CreatePageState extends State<CreatePage> {
             // O formulário é válido, prossiga
             Navigator.pushReplacementNamed(context, '/listpage');
           } else {
+            // Tratar o caso de erro
           }
         },
       ),
@@ -138,15 +137,15 @@ class _CreatePageState extends State<CreatePage> {
 }
 
 class FloatingActionButtonCustom2 extends StatelessWidget {
-  final VoidCallback onPressed; // Callback para onPressed
+  final VoidCallback onPressed;
 
   FloatingActionButtonCustom2({required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: onPressed, // Função passada será executada aqui
-      child: SvgPicture.asset('assets/ic_done.svg') // Ícone substituto para exemplo
+      onPressed: onPressed,
+      child: SvgPicture.asset('assets/ic_done.svg'),
     );
   }
 }
